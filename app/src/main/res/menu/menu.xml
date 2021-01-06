@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:id="@+id/group" android:checkableBehavior="single">
+
+        <item android:id="@+id/weather"
+            android:title="@string/Home"
+            android:icon="@drawable/ic_home"
+            />
+
+        <item android:id="@+id/Location"
+            android:title="@string/manage_location"
+            android:icon="@drawable/ic_manage_location"
+            />
+
+        <item android:id="@+id/Notification"
+            android:icon="@drawable/ic_notification"
+            android:title="@string/Notification"/>
+
+        <item android:id="@+id/Radar"
+            android:icon="@drawable/ic_radar"
+            android:title="@string/radar"/>
+
+        <item
+            android:id="@+id/Unit"
+            android:icon="@drawable/ic_radar"
+            android:title="@string/Unit_Setting"
+            />
+
+
+    </group>
+</menu>

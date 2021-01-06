@@ -1,0 +1,69 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">WeatherApp</string>
+    <string name="loading" tools:ignore="TypographyEllipsis">Loading ...</string>
+    <string name="picture">picture</string>
+    <string name="settings">Settings</string>
+    <string name="Temperature">Temperature</string>
+    <string name="done">Done</string>
+    <string name="Time_Format">Time Format</string>
+    <string name="Precipitation">Precipitation</string>
+    <string name="Wind_Speed">Wind Speed</string>
+    <string name="Pressure">Pressure</string>
+    <string name="Lock_Screen">Lock Screen</string>
+    <string name="Notification">Notification</string>
+    <string name="Status_Bar">Status Bar</string>
+    <string name="Home">Home</string>
+    <string name="manage_location">Manage Location</string>
+    <string name="radar">Radar</string>
+    <string name="Unit_Setting">Unit Setting</string>
+
+    <string name="open">open</string>
+    <string name="close">close</string>
+    <string name="auto_change_background">Auto change background</string>
+    <string name="no_location">No Location</string>
+    <string name="whops">Whoops!</string>
+    <string name="no_location_saved">At the present you don\'t have any location</string>
+    <string name="add">Add Location</string>
+    <string name="Automatic_Detection">Automatic Detection</string>
+    <string name="or">or</string>
+    <string name="mylocations">My Locations</string>
+    <string name="permission_required">Location Permission Required</string>
+    <string name="Accept">Accept</string>
+    <string name="Internet">There is No Internet Connection :(</string>
+    <string name="not_now">Not now</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="thepackage">package:</string>
+
+    <string-array name="Temperature">
+        <item>C</item>
+        <item>F</item>
+    </string-array>
+
+
+
+    <string-array name="Time_Format">
+        <item>12 Hour</item>
+        <item>24 Hour</item>
+    </string-array>
+
+
+    <string-array name="Precipitation">
+        <item>MM</item>
+        <item>IN</item>
+    </string-array>
+
+    <string-array name="Wind_Speed">
+        <item>KM/H</item>
+        <item>MI/H</item>
+        <item>M/S</item>
+    </string-array>
+
+    <string-array name="Pressure">
+        <item>mmHg</item>
+        <item>hPa</item>
+        <item>atm</item>
+        <item>mbar</item>
+    </string-array>
+
+</resources>
