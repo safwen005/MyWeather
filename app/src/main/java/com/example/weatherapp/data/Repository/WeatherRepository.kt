@@ -2,29 +2,18 @@ package com.example.weatherapp.data.Repository
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.weatherapp.Utilities.Coroutines
 import com.example.weatherapp.Utilities.LocationCountResponse
 import com.example.weatherapp.Utilities.LocationResponse
 import com.example.weatherapp.data.Network.Get_Location
 import com.example.weatherapp.data.Network.Interceptor
 import com.example.weatherapp.data.Network.MyApiCall
+import com.example.weatherapp.data.Network.responses.WeatherResponse
 import com.example.weatherapp.data.db.Weatherdatabase
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Response
-import javax.security.auth.callback.Callback
 
 class WeatherRepository() {
 
@@ -33,10 +22,12 @@ class WeatherRepository() {
     lateinit var editor: SharedPreferences.Editor
     lateinit var getLocation: Get_Location
     lateinit var weatherdatabase: Weatherdatabase
+    lateinit var activity: Activity
 
     @SuppressLint("CommitPrefEdits")
     fun InitValues(activity: Activity) {
         if (!::sharedPreferences.isInitialized) {
+            this.activity = activity
             sharedPreferences =
                 activity.application.getSharedPreferences("Cache", Context.MODE_PRIVATE)
             editor = sharedPreferences.edit()
@@ -114,9 +105,12 @@ class WeatherRepository() {
         return result
     }
 
-
-    suspend fun getWeather(Country: String): Response<String> {
-        return MyApiCall(Interceptor(null)).request()
+    suspend fun GetWeather(lat:Double,lon:Double): WeatherResponse {
+        return MyApiCall(Interceptor(activity)).request(
+            lat,
+            lon,
+            "c531487b86964e05bc82f5d80e1b3c34"
+        )
     }
 
 

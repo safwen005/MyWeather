@@ -1,5 +1,6 @@
 package com.example.weatherapp.Utilities
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
@@ -8,6 +9,7 @@ import android.location.Location
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.view.animation.Animation
@@ -21,10 +23,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import com.example.weatherapp.R
 import com.example.weatherapp.Utilities.Constants.permission_request_code
+import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.time.Month
+import java.time.Year
+import java.util.*
 
 fun Activity.Fullscreen() = getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
@@ -77,6 +85,8 @@ fun Activity.request_permissions(vararg ids: String) {
     ActivityCompat.requestPermissions(this, ids, permission_request_code)
 }
 
+fun TextInputEditText.reset() = setText("")
+
 
 fun isInternetAvailable(context: Context?): Boolean {
     var result = false
@@ -108,10 +118,44 @@ fun isInternetAvailable(context: Context?): Boolean {
     return result
 }
 
+fun log(text: Any?) = Log.e("myapp", text.toString())
+
 fun Context.toast(message: Any?) =
     Toast.makeText(this, message.toString(), Toast.LENGTH_LONG).show()
 
 fun Context.Color(id: Int) = ContextCompat.getColor(this, id)
+
+@SuppressLint("SetTextI18n")
+fun TextView.add(newtext: Any) {
+    text = text.toString() + " " + newtext
+}
+
+// Get the current date !
+@SuppressLint("SimpleDateFormat")
+fun Context.getCurrentHour(time: Long? = null): Int {
+    val date = Date(time ?: Calendar.getInstance().timeInMillis)
+    date.time += 3600000
+    val formatter: DateFormat = SimpleDateFormat("HH")
+    formatter.setTimeZone(TimeZone.getTimeZone("UTC"))
+    return formatter.format(date).toInt()
+}
+
+@SuppressLint("SimpleDateFormat")
+fun Context.getFullTime(time: Long? = null): String {
+    val date = Date(time ?: Calendar.getInstance().timeInMillis)
+    val formatter: DateFormat = SimpleDateFormat("HH:mm")
+    return formatter.format(date)
+}
+
+@SuppressLint("SimpleDateFormat")
+fun Context.getDate(time: Long): String? {
+    val date = Date()
+    date.time = time * 1000
+
+    val sdf = SimpleDateFormat("dd , yyyy")
+    return resources.getStringArray(R.array.months)
+        .get(sdf.calendar.get(Calendar.MONTH)) + " " + sdf.format(date)
+}
 
 typealias LocationResponse = Pair<Location?, Exception?>
 typealias LocationCountResponse = Pair<LiveData<Int>?, Exception?>

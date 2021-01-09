@@ -10,10 +10,10 @@
     <string name="Wind_Speed">Wind Speed</string>
     <string name="Pressure">Pressure</string>
     <string name="Lock_Screen">Lock Screen</string>
-    <string name="Notification">Notification</string>
     <string name="Status_Bar">Status Bar</string>
     <string name="Home">Home</string>
     <string name="manage_location">Manage Location</string>
+    <string name="the_weather">The_Weather</string>
     <string name="radar">Radar</string>
     <string name="Unit_Setting">Unit Setting</string>
 
@@ -24,7 +24,7 @@
     <string name="whops">Whoops!</string>
     <string name="no_location_saved">At the present you don\'t have any location</string>
     <string name="add">Add Location</string>
-    <string name="Automatic_Detection">Automatic Detection</string>
+    <string name="Automatic_Detection">Automatic Detection ?</string>
     <string name="or">or</string>
     <string name="mylocations">My Locations</string>
     <string name="permission_required">Location Permission Required</string>
@@ -34,6 +34,24 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="thepackage">package:</string>
+    <string name="search_location">Search Location</string>
+
+
+    <string-array name="months">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+
 
     <string-array name="Temperature">
         <item>C</item>
@@ -60,10 +78,9 @@
     </string-array>
 
     <string-array name="Pressure">
-        <item>mmHg</item>
-        <item>hPa</item>
-        <item>atm</item>
-        <item>mbar</item>
+        <item>Fahrenheit</item>
+        <item>Celsius</item>
+        <item>Kelvin</item>
     </string-array>
 
 </resources>

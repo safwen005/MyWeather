@@ -11,6 +11,6 @@ interface CommonViewModel {
     fun First_Time(): Boolean?
     fun SaveSettings(vararg list:Pair<String,Any>)
     fun putKey(key:String,value:Any)
-    fun GetWeather():LiveData<LocationResponse>?
+    fun GetLocation():LiveData<LocationResponse>?
     fun GetLocationsCount(): LocationCountResponse
 }

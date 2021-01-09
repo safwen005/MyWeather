@@ -14,9 +14,7 @@
             android:icon="@drawable/ic_manage_location"
             />
 
-        <item android:id="@+id/Notification"
-            android:icon="@drawable/ic_notification"
-            android:title="@string/Notification"/>
+
 
         <item android:id="@+id/Radar"
             android:icon="@drawable/ic_radar"

@@ -1,369 +1,234 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="@color/nav_header">
+    android:background="@color/nav_header"
+    android:orientation="vertical">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:layout_marginTop="@dimen/_50sdp"
+        android:orientation="vertical">
 
         <TextView
+            android:id="@+id/settings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_10sdp"
             android:fontFamily="@font/aref"
             android:gravity="center"
-            android:textColor="@color/blue"
             android:text="@string/settings"
+            android:textColor="@color/blue"
             android:textSize="@dimen/_30ssp" />
 
         <LinearLayout
+            android:id="@+id/Temperaturee"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
-            android:orientation="horizontal"
-            android:background="@drawable/setting_card"
-            android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_20sdp"
             android:layout_marginBottom="@dimen/_15sdp"
-            >
+            android:background="@drawable/setting_card"
+            android:orientation="horizontal">
 
             <ImageView
-                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:contentDescription="@string/picture"
-                app:srcCompat="@drawable/ic_temperature"
                 android:layout_marginTop="@dimen/_10sdp"
-                />
+                android:layout_weight="1"
+                android:contentDescription="@string/picture"
+                app:srcCompat="@drawable/ic_temperature" />
 
             <TextView
-                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
                 android:text="@string/Temperature"
                 android:textColor="@color/setting_color"
-                android:fontFamily="@font/roboto"
-                android:layout_gravity="center"
-                android:textSize="@dimen/_11ssp"
-                android:gravity="center"
-                />
+                android:textSize="@dimen/_11ssp" />
 
             <Spinner
                 android:id="@+id/Temperature"
-                android:layout_weight="0.9"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="0.9"
                 android:entries="@array/Temperature"
-                android:theme="@style/Spinner"
-                />
+                android:theme="@style/Spinner" />
 
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/Time_Formatt"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
-            android:orientation="horizontal"
-            android:background="@drawable/setting_card"
             android:layout_marginStart="@dimen/_20sdp"
             android:layout_marginEnd="@dimen/_20sdp"
             android:layout_marginBottom="@dimen/_15sdp"
-            >
+            android:background="@drawable/setting_card"
+            android:orientation="horizontal">
 
             <ImageView
-                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:contentDescription="@string/picture"
-                app:srcCompat="@drawable/ic_time_format"
                 android:layout_marginTop="@dimen/_10sdp"
-                />
+                android:layout_weight="1"
+                android:contentDescription="@string/picture"
+                app:srcCompat="@drawable/ic_time_format" />
 
             <TextView
-                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
                 android:text="@string/Time_Format"
                 android:textColor="@color/setting_color"
-                android:fontFamily="@font/roboto"
-                android:layout_gravity="center"
-                android:textSize="@dimen/_11ssp"
-                android:gravity="center"
-                />
+                android:textSize="@dimen/_11ssp" />
 
             <Spinner
                 android:id="@+id/Time_Format"
-                android:layout_weight="0.9"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="0.9"
                 android:entries="@array/Time_Format"
-                android:theme="@style/Spinner"
                 android:gravity="end"
-                />
+                android:theme="@style/Spinner" />
 
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/Precipitationn"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
-            android:orientation="horizontal"
-            android:background="@drawable/setting_card"
             android:layout_marginStart="@dimen/_20sdp"
             android:layout_marginEnd="@dimen/_20sdp"
             android:layout_marginBottom="@dimen/_15sdp"
-            >
+            android:background="@drawable/setting_card"
+            android:orientation="horizontal">
 
             <ImageView
-                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:contentDescription="@string/picture"
-                app:srcCompat="@drawable/ic_precipitation"
                 android:layout_marginTop="@dimen/_10sdp"
-                />
+                android:layout_weight="1"
+                android:contentDescription="@string/picture"
+                app:srcCompat="@drawable/ic_precipitation" />
 
             <TextView
-                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
                 android:text="@string/Precipitation"
                 android:textColor="@color/setting_color"
-                android:fontFamily="@font/roboto"
-                android:layout_gravity="center"
-                android:textSize="@dimen/_11ssp"
-                android:gravity="center"
-                />
+                android:textSize="@dimen/_11ssp" />
 
             <Spinner
                 android:id="@+id/Precipitation"
-                android:layout_weight="0.9"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="0.9"
                 android:entries="@array/Precipitation"
-                android:theme="@style/Spinner"
                 android:gravity="end"
-                />
+                android:theme="@style/Spinner" />
 
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/Wind_Speedd"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
-            android:orientation="horizontal"
-            android:background="@drawable/setting_card"
             android:layout_marginStart="@dimen/_20sdp"
             android:layout_marginEnd="@dimen/_20sdp"
             android:layout_marginBottom="@dimen/_15sdp"
-            >
+            android:background="@drawable/setting_card"
+            android:orientation="horizontal">
 
             <ImageView
-                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:contentDescription="@string/picture"
-                app:srcCompat="@drawable/ic_wind_speed"
                 android:layout_marginTop="@dimen/_10sdp"
-                />
+                android:layout_weight="1"
+                android:contentDescription="@string/picture"
+                app:srcCompat="@drawable/ic_wind_speed" />
 
             <TextView
-                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
                 android:text="@string/Wind_Speed"
                 android:textColor="@color/setting_color"
-                android:fontFamily="@font/roboto"
-                android:layout_gravity="center"
-                android:textSize="@dimen/_11ssp"
-                android:gravity="center"
-                />
+                android:textSize="@dimen/_11ssp" />
 
             <Spinner
                 android:id="@+id/Wind_Speed"
-                android:layout_weight="0.9"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="0.9"
                 android:entries="@array/Wind_Speed"
-                android:theme="@style/Spinner"
                 android:gravity="end"
-                />
+                android:theme="@style/Spinner" />
 
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/Pressuree"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
-            android:orientation="horizontal"
-            android:background="@drawable/setting_card"
             android:layout_marginStart="@dimen/_20sdp"
             android:layout_marginEnd="@dimen/_20sdp"
             android:layout_marginBottom="@dimen/_15sdp"
-            >
+            android:background="@drawable/setting_card"
+            android:orientation="horizontal">
 
             <ImageView
-                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:contentDescription="@string/picture"
-                app:srcCompat="@drawable/ic_pressure"
                 android:layout_marginTop="@dimen/_10sdp"
-                />
+                android:layout_weight="1"
+                android:contentDescription="@string/picture"
+                app:srcCompat="@drawable/ic_pressure" />
 
             <TextView
-                android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
                 android:text="@string/Pressure"
                 android:textColor="@color/setting_color"
-                android:fontFamily="@font/roboto"
-                android:layout_gravity="center"
-                android:textSize="@dimen/_11ssp"
-                android:gravity="center"
-                />
+                android:textSize="@dimen/_11ssp" />
 
             <Spinner
                 android:id="@+id/Pressure"
-                android:layout_weight="0.9"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="0.9"
                 android:entries="@array/Pressure"
-                android:theme="@style/Spinner"
                 android:gravity="end"
-                />
+                android:theme="@style/Spinner" />
 
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
-            android:orientation="horizontal"
-            android:background="@drawable/setting_card"
-            android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
-            android:layout_marginBottom="@dimen/_15sdp"
-            >
-
-            <ImageView
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/picture"
-                app:srcCompat="@drawable/ic_lock_screen"
-                android:layout_marginTop="@dimen/_10sdp"
-                />
-
-            <TextView
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/Lock_Screen"
-                android:textColor="@color/setting_color"
-                android:fontFamily="@font/roboto"
-                android:layout_gravity="center"
-                android:textSize="@dimen/_11ssp"
-                android:gravity="center"
-                />
-
-            <Switch
-                android:id="@+id/Lock_Screen"
-                android:layout_weight="0.9"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="@dimen/_10sdp" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
-            android:orientation="horizontal"
-            android:background="@drawable/setting_card"
-            android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
-            android:layout_marginBottom="@dimen/_15sdp"
-            >
-
-            <ImageView
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/picture"
-                app:srcCompat="@drawable/ic_notification"
-                android:layout_marginTop="@dimen/_10sdp"
-                />
-
-            <TextView
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/Notification"
-                android:textColor="@color/setting_color"
-                android:fontFamily="@font/roboto"
-                android:layout_gravity="center"
-                android:textSize="@dimen/_11ssp"
-                android:gravity="center"
-                />
-
-            <Switch
-                android:id="@+id/Notification"
-                android:layout_weight="0.9"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="@dimen/_10sdp" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
-            android:orientation="horizontal"
-            android:background="@drawable/setting_card"
-            android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
-            android:layout_marginBottom="@dimen/_5sdp"
-            >
-
-            <ImageView
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/picture"
-                app:srcCompat="@drawable/ic_status_bar"
-                android:layout_marginTop="@dimen/_10sdp"
-                />
-
-            <TextView
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/Status_Bar"
-                android:textColor="@color/setting_color"
-                android:fontFamily="@font/roboto"
-                android:layout_gravity="center"
-                android:textSize="@dimen/_11ssp"
-                android:gravity="center"
-                />
-
-            <Switch
-                android:id="@+id/Status_Bar"
-                android:layout_weight="0.9"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="@dimen/_10sdp" />
-
-
-        </LinearLayout>
 
 
         <com.google.android.material.button.MaterialButton
@@ -371,12 +236,12 @@
             android:layout_width="@dimen/_80sdp"
             android:layout_height="@dimen/_35sdp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_marginTop="@dimen/_5sdp"
             android:fontFamily="@font/aref"
             android:text="@string/done"
             android:textSize="@dimen/_8ssp"
             app:backgroundTint="@color/blue"
-            app:cornerRadius="@dimen/_3sdp"
-            />
+            app:cornerRadius="@dimen/_3sdp" />
+
     </LinearLayout>
 </ScrollView>

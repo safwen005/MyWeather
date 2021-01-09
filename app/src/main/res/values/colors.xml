@@ -13,6 +13,9 @@
     <color name="little_white">#F8FAF9</color>
     <color name="white">#ffff</color>
     <color name="nav_items">#373737</color>
+    <color name="yellow">#FFD54F</color>
+    <color name="little_gray">#F5F5F5</color>
+    <color name="search_corners">#DDDDDD</color>
     <color name="orange">#FF4C04</color>
     <color name="nav_header">#2a2a2a</color>
 </resources>

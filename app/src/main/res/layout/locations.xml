@@ -4,11 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_50sdp"
-    android:layout_margin="@dimen/_15sdp"
-    app:cardBackgroundColor="@color/nav_header"
+    android:layout_height="@dimen/_40sdp"
+    app:cardBackgroundColor="@color/orange"
+    android:layout_marginStart="@dimen/_15sdp"
+    android:layout_marginEnd="@dimen/_15sdp"
+    android:layout_marginTop="@dimen/_12sdp"
+    android:layout_marginBottom="@dimen/_3sdp"
     app:cardCornerRadius="@dimen/_5sdp"
-    app:cardElevation="@dimen/_10sdp">
+    app:cardElevation="@dimen/_2sdp"
+    android:layout_gravity="center_horizontal"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -22,16 +27,16 @@
         <TextView
             android:id="@+id/location_adress"
             android:layout_toStartOf="@id/picture"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingStart="@dimen/_5sdp"
             android:ellipsize="end"
             android:fontFamily="@font/roboto"
             android:gravity="center_vertical"
             android:maxLines="1"
-            android:text="qsddddddddddddddddddddddddddddddddddqsdsq"
             android:textColor="@color/white"
-            android:textSize="@dimen/_12ssp" />
+            android:textSize="@dimen/_12ssp"
+            tools:ignore="RtlCompat,RtlSymmetry" />
 
 
         <ImageView

@@ -5,38 +5,38 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.example.weatherapp.R
+import com.example.weatherapp.Utilities.reset
 import com.example.weatherapp.View.activities.Home
 import com.example.weatherapp.databinding.NoLocationBinding
-class NoLocation() : Fragment() {
+import com.example.weatherapp.databinding.SearchLocationBinding
 
-    lateinit var noLocationBinding: NoLocationBinding
-    lateinit var activity:Home
+class search_location() : Fragment() {
 
+    lateinit var searchLocationBinding: SearchLocationBinding
+    lateinit var activity: Home
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        noLocationBinding = NoLocationBinding.inflate(layoutInflater)
-        activity=(requireActivity() as Home)
-        return noLocationBinding.root
+        searchLocationBinding = SearchLocationBinding.inflate(layoutInflater)
+        activity = (requireActivity() as Home)
+        return searchLocationBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        noLocationBinding.addLocation.setOnClickListener {
-            activity.Navigate(Manage_Location())
+        searchLocationBinding.reset.setOnClickListener {
+            searchLocationBinding.search.reset()
         }
-
-
-
     }
 
     override fun onResume() {
         super.onResume()
-        activity.Change_Background(1)
-        activity.ChangeToolbarTitle(requireActivity().getString(R.string.no_location))
+        activity.ChangeToolbarTitle(requireActivity().getString(R.string.search_location))
     }
+
 }

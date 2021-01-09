@@ -3,10 +3,16 @@ package com.thinkit.smartyhome.ViewModel
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.weatherapp.Utilities.Coroutines.MYIO
 import com.example.weatherapp.Utilities.LocationCountResponse
 import com.example.weatherapp.Utilities.LocationResponse
+import com.example.weatherapp.data.Network.responses.WeatherResponse
 import com.example.weatherapp.data.Repository.WeatherRepository
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.async
+import kotlinx.coroutines.withContext
 
 class CommonViewModelImplementor() : ViewModel(), CommonViewModel {
 
@@ -24,7 +30,7 @@ class CommonViewModelImplementor() : ViewModel(), CommonViewModel {
         }
     }
 
-    override fun GetWeather(): LiveData<LocationResponse>? {
+    override fun GetLocation(): LiveData<LocationResponse>? {
         return weatherRepository.getLatLong(activity)
     }
 
@@ -53,5 +59,19 @@ class CommonViewModelImplementor() : ViewModel(), CommonViewModel {
         return weatherRepository.GetLocationsCount()
     }
 
+
+    fun GetWeather(lat:Double,lon:Double): LiveData<WeatherResponse> {
+        val WeatherResult = MutableLiveData<WeatherResponse>()
+        MYIO{
+            withContext(Main) {
+                WeatherResult.value = async {
+                    weatherRepository.GetWeather(lat,lon)
+
+                }.await()
+            }
+
+        }
+        return WeatherResult
+    }
 
 }

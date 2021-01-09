@@ -51,11 +51,9 @@ class Get_Location(val activity: Activity) {
                         fusedLocationProviderClient.removeLocationUpdates(locationCallback)
                         try {
                             resultformat = LocationResponse(location, null)
-                            result.value = resultformat
 
                         } catch (exception: Exception) {
                             resultformat = LocationResponse(null, exception)
-                            result.value = resultformat
                         } finally {
                             result.value = resultformat
                         }
@@ -97,7 +95,6 @@ class Get_Location(val activity: Activity) {
             fusedLocationProviderClient.lastLocation
 
         }.addOnFailureListener {
-            // dismiss dialog
             if (it is ResolvableApiException) {
                 try {
                     it.startResolutionForResult(activity, settings_request_code)

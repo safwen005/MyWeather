@@ -1,5 +1,6 @@
 package com.example.weatherapp.View.activities
 
+import android.app.Notification
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -50,9 +51,6 @@ class First_Time : AppCompatActivity() {
                 Pair(getString(R.string.Precipitation), Precipitation.selectedItemPosition),
                 Pair(getString(R.string.Wind_Speed), WindSpeed.selectedItemPosition),
                 Pair(getString(R.string.Pressure), Pressure.selectedItemPosition),
-                Pair(getString(R.string.Lock_Screen), LockScreen.isChecked),
-                Pair(getString(R.string.Notification), Notification.isChecked),
-                Pair(getString(R.string.Status_Bar), StatusBar.isChecked)
             )
 
         }
