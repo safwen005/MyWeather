@@ -28,16 +28,11 @@ class Splash_screen : AppCompatActivity() {
             ViewModelProvider(this).get(CommonViewModelImplementor::class.java)
         commonViewModelImplementor.Init(this)
 
-        GoToHome()
-
-
         Fullscreen()
-/*
         Animation_left_right()
 
         Test()
 
- */
     }
 
     private fun initValues() {
@@ -47,13 +42,15 @@ class Splash_screen : AppCompatActivity() {
     }
 
     private fun Test() {
-
+        commonViewModelImplementor.putKey("first_time_location", true)
         Coroutines.Main(3000) {
-            commonViewModelImplementor.First_Time()?.let {
-                GoToSettings()
-                return@Main
+            commonViewModelImplementor.First_Time()?.let { firstTime ->
+                if (firstTime) {
+                    GoToSettings()
+                    return@Main
+                }
+                GoToHome()
             }
-            GoToHome()
         }
 
     }

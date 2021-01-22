@@ -5,7 +5,7 @@
     android:id="@+id/home"
     android:layout_width="match_parent"
     android:layout_height="@dimen/_40sdp"
-    app:cardBackgroundColor="@color/orange"
+    app:cardBackgroundColor="@color/nav_header"
     android:layout_marginStart="@dimen/_15sdp"
     android:layout_marginEnd="@dimen/_15sdp"
     android:layout_marginTop="@dimen/_12sdp"
@@ -45,7 +45,6 @@
             android:layout_height="@dimen/_20sdp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/_5sdp"
             android:contentDescription="@string/picture"
             app:srcCompat="@drawable/ic_remove" />
 

@@ -25,6 +25,19 @@ object Coroutines {
         }
     }
 
+    fun ChildExceptionHandler(doStuff:()->Unit):CoroutineExceptionHandler{
+       return CoroutineExceptionHandler{ _, exception ->
+           doStuff()
+        }
+    }
+
+
+    fun ParentExceptionHandler(doStuff:()->Unit):CoroutineExceptionHandler{
+        return CoroutineExceptionHandler{ _, exception ->
+            doStuff()
+        }
+    }
+
 
 }
 

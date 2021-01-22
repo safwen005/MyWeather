@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -19,13 +18,14 @@ import com.example.weatherapp.R
 import com.example.weatherapp.Utilities.*
 import com.example.weatherapp.Utilities.Constants.permission_request_code
 import com.example.weatherapp.View.fragments.Manage_Location
-import com.example.weatherapp.View.fragments.NoLocation
 import com.example.weatherapp.View.fragments.UnitSetting
 import com.example.weatherapp.View.fragments.Weather
+import com.example.weatherapp.data.Network.responses.WeatherAll
 import com.example.weatherapp.databinding.HomeBinding
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.snackbar.Snackbar
 import com.thinkit.smartyhome.ViewModel.CommonViewModelImplementor
+import dmax.dialog.SpotsDialog
 import kotlin.properties.Delegates
 
 
@@ -35,14 +35,12 @@ class Home : AppCompatActivity(), View.OnClickListener, InternetAvailabilityList
     lateinit var commonViewModelImplementor: CommonViewModelImplementor
     lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
     lateinit var toolbar: Toolbar
-    lateinit var homefragment: Fragment
+    lateinit var homefragment: Weather
     lateinit var snake: Snackbar
     lateinit var appsettings: appsettings
     lateinit var InternetAvailabilityBroadcastIntent: IntentFilter
     lateinit var InternetAvailabilityBroadcast: InternetAvailabilityBroadcast
     var Current_selected_fragment = -1
-    var we_already_got_the_location = false
-    var last_location_hour by Delegates.notNull<Int>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,53 +61,18 @@ class Home : AppCompatActivity(), View.OnClickListener, InternetAvailabilityList
         Prepare_nav_drawer()
 
         InitListeners()
-        homefragment = Weather()
-        Start_Navigation(0, homefragment)
 
-
-//        CheckInternetAvailabilityAndLocationPermission()
-//
-//        DoesHaveLocationsInLocalDatabase()
-
+        Navigate(homefragment)
 
     }
 
 
-
-    private fun DoesHaveLocationsInLocalDatabase() {
-
-        commonViewModelImplementor.GetLocationsCount().first?.let { observer ->
-            observer.observe(this) { LocationsCount ->
-                if (LocationsCount > 0) {
-                    // get last selected location && show weather fragment
-                    homefragment = Weather()
-                    Start_Navigation(0, homefragment)
-                    ShowLastChoosenLocation()
-                    return@observe
-                }
-                // show No Location Fragment
-                homefragment = NoLocation()
-                Start_Navigation(0, homefragment)
-            }
-            return@let
-        }
-        commonViewModelImplementor.GetLocationsCount().second?.let { exception ->
-            // Handle location request exception
-            toast(exception.message)
-        }
-    }
-
-
-    private fun ShowLastChoosenLocation() {
-
-    }
-
-    fun CheckInternetAvailabilityAndLocationPermission(ShowSnackBar: Boolean = true) {
+    fun CheckInternetAvailabilityAndLocationPermission(
+        job: (() -> Unit)? = null
+    ) {
         if (!isInternetAvailable(this)) {
-            if (ShowSnackBar) {
-                snake = appsettings.prepare_snake(this@Home, homeBinding.drawer, false)
-                snake.show()
-            }
+            snake = appsettings.prepare_snake(this@Home, homeBinding.drawer, false)
+            snake.show()
             return
         }
         if (this.permissions(
@@ -117,15 +80,13 @@ class Home : AppCompatActivity(), View.OnClickListener, InternetAvailabilityList
                 android.Manifest.permission.ACCESS_COARSE_LOCATION
             )
         ) {
-            GrabLocation()
+            job?.let { it() }
             return
         }
         commonViewModelImplementor.getkey<Boolean>("location")?.let { UserForgetPermission ->
             if (UserForgetPermission) {
-                if (ShowSnackBar) {
-                    snake = appsettings.prepare_snake(this@Home, homeBinding.drawer)
-                    snake.show()
-                }
+                snake = appsettings.prepare_snake(this@Home, homeBinding.drawer)
+                snake.show()
                 return
             }
             request_permissions(
@@ -139,32 +100,6 @@ class Home : AppCompatActivity(), View.OnClickListener, InternetAvailabilityList
         homeBinding.appbar.toolbarTitle.text = text
     }
 
-    private fun GrabLocationIntoWeatherFragment() {
-        //if he accepts grab location in the weather fragment
-    }
-
-
-    private fun GrabLocationFromHomeActivityIntoWeatherFragment() {
-
-    }
-
-    private fun GrabLocation() {
-        commonViewModelImplementor.GetLocation()?.observe(this) { result ->
-            result?.first?.let { location ->
-
-
-                Log.e("myapp", location.latitude.toString())
-                we_already_got_the_location = true
-                last_location_hour = getCurrentHour()
-                return@observe
-            }
-            result.second?.let {
-                // handle exception
-            }
-        }
-    }
-
-    fun DoesWeHaveAlreadyTheLocation(): Boolean = we_already_got_the_location
 
     private fun InitListeners() {
 
@@ -183,14 +118,11 @@ class Home : AppCompatActivity(), View.OnClickListener, InternetAvailabilityList
             commonViewModelImplementor.getkey<Boolean>("auto_status")?.let { auto_status ->
                 autoStatus.isChecked = auto_status
             }
-
+            homefragment = Weather()
 
         }
 
-
     }
-
-    fun TimeOfNewLocation(): Boolean = (getCurrentHour() - last_location_hour >= 3)
 
 
     override fun onResume() {
@@ -225,11 +157,11 @@ class Home : AppCompatActivity(), View.OnClickListener, InternetAvailabilityList
 
     @SuppressLint("WrongConstant")
     fun Start_Navigation(position: Int, fragment: Fragment) {
-        if (Current_selected_fragment != position)
+        if (Current_selected_fragment != position) {
             Navigate(fragment)
+        }
         homeBinding.drawer.closeDrawer(Gravity.START)
     }
-
 
     override fun onClick(v: View?) {
         homeBinding.navItems.apply {
@@ -275,14 +207,11 @@ class Home : AppCompatActivity(), View.OnClickListener, InternetAvailabilityList
         toolbar.navigationIcon =
             VectorDrawableCompat.create(resources, R.drawable.ic_navigation_icon, null)
         toolbar.inflateMenu(R.menu.toolbar)
-        /*
         toolbar.setOnMenuItemClickListener {
             if (it.itemId == R.id.toolbar_location)
-                WeatherTest()
+                log(random())
             return@setOnMenuItemClickListener true
         }
-
-         */
     }
 
     fun Change_Background(Fragment_Position: Int) {
@@ -310,11 +239,9 @@ class Home : AppCompatActivity(), View.OnClickListener, InternetAvailabilityList
         Current_selected_fragment = Fragment_Position
     }
 
-
     private fun New_Background(Item: MaterialCardView) {
         Item.strokeWidth = 2
     }
-
 
     private fun Reset_Background(Item: MaterialCardView? = null) {
         Item?.apply {
@@ -322,15 +249,13 @@ class Home : AppCompatActivity(), View.OnClickListener, InternetAvailabilityList
         }
     }
 
-    fun Navigate(fragment: Fragment, tag: String? = null) {
-        replace_fragment(R.id.myframe, fragment, tag)
+    fun Navigate(fragment: Fragment) {
+        replace_fragment(R.id.myframe, fragment)
     }
-
 
     fun GoToPreviousFragment() {
         supportFragmentManager.popBackStack()
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -376,7 +301,7 @@ class Home : AppCompatActivity(), View.OnClickListener, InternetAvailabilityList
         if (Current_selected_fragment == 0) {
             finishAffinity()
         }
-        GoToPreviousFragment()
+        super.onBackPressed()
     }
 
 

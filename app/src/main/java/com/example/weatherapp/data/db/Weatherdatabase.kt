@@ -1,9 +1,11 @@
 package com.example.weatherapp.data.db
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.databinding.adapters.Converters
+import androidx.room.*
+import com.example.weatherapp.data.db.entities.Converters.Converter
+import com.example.weatherapp.data.db.entities.Converters.Converter2
+import com.example.weatherapp.data.db.entities.Converters.Converter3
 import com.example.weatherapp.data.db.entities.WeatherModel
 
 
@@ -11,6 +13,7 @@ import com.example.weatherapp.data.db.entities.WeatherModel
     entities = [WeatherModel::class],
     version = Weatherdatabase.DatabaseVersion
 )
+@TypeConverters(Converter::class, Converter2::class, Converter3::class)
 abstract class Weatherdatabase : RoomDatabase() {
 
     abstract fun RoomDao(): WeatherDao
@@ -24,7 +27,7 @@ abstract class Weatherdatabase : RoomDatabase() {
                 context.applicationContext,
                 Weatherdatabase::class.java,
                 "Weather_Database"
-            ).fallbackToDestructiveMigration().build().also { instance=it }
+            ).fallbackToDestructiveMigration().build().also { instance = it }
 
         }
 

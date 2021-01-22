@@ -30,10 +30,10 @@
            android:layout_width="match_parent"
            android:layout_height="@dimen/_40sdp"
            app:cardBackgroundColor="@color/nav_header"
-           app:cardCornerRadius="@dimen/_5sdp"
            android:layout_marginStart="@dimen/_15sdp"
            android:layout_marginEnd="@dimen/_15sdp"
            android:layout_marginBottom="@dimen/_10sdp"
+           app:cardCornerRadius="@dimen/_5sdp"
            app:strokeColor="@color/black"
            >
            <LinearLayout

@@ -13,9 +13,12 @@ class InternetAvailabilityBroadcast : BroadcastReceiver() {
 
         (context as? Home)?.apply {
             if (isInternetAvailable(this)) {
+                /*
                 if (TimeOfNewLocation() || !DoesWeHaveAlreadyTheLocation()) {
                     CheckInternetAvailabilityAndLocationPermission(false)
                 }
+
+                 */
             }
         }
 

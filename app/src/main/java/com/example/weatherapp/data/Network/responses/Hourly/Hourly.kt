@@ -1,22 +1,19 @@
-package com.example.weatherapp.data.Network.responses
+package com.example.weatherapp.data.Network.responses.Hourly
 
 
-import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
-import java.io.Serializable
 
-data class Data(
+data class Hourly(
     @SerializedName("app_temp")
     val appTemp: Double,
-    @SerializedName("aqi")
-    val aqi: Double,
-    @SerializedName("city_name")
-    val cityName: String,
     @SerializedName("clouds")
     val clouds: Double,
-    @SerializedName("country_code")
-    val countryCode: String,
+    @SerializedName("clouds_hi")
+    val cloudsHi: Double,
+    @SerializedName("clouds_low")
+    val cloudsLow: Double,
+    @SerializedName("clouds_mid")
+    val cloudsMid: Double,
     @SerializedName("datetime")
     var datetime: String,
     @SerializedName("dewpt")
@@ -25,20 +22,14 @@ data class Data(
     val dhi: Double,
     @SerializedName("dni")
     val dni: Double,
-    @SerializedName("elev_angle")
-    val elevAngle: Double,
     @SerializedName("ghi")
     val ghi: Double,
-    @SerializedName("h_angle")
-    val hAngle: Int,
-    @SerializedName("lat")
-    val lat: String,
-    @SerializedName("lon")
-    val lon: String,
-    @SerializedName("ob_time")
-    var obTime: String,
+    @SerializedName("ozone")
+    val ozone: Double,
     @SerializedName("pod")
-    val pod: String,
+    var Cityname: String,
+    @SerializedName("pop")
+    val pop: Double,
     @SerializedName("precip")
     val precip: Double,
     @SerializedName("pres")
@@ -47,20 +38,18 @@ data class Data(
     val rh: Double,
     @SerializedName("slp")
     val slp: Double,
+    @SerializedName("snow")
+    val snow: Double,
+    @SerializedName("snow_depth")
+    val snowDepth: Double,
     @SerializedName("solar_rad")
     val solarRad: Double,
-    @SerializedName("state_code")
-    val stateCode: String,
-    @SerializedName("station")
-    val station: String,
-    @SerializedName("sunrise")
-    val sunrise: String,
-    @SerializedName("sunset")
-    val sunset: String,
     @SerializedName("temp")
-    var temp: Double,
-    @SerializedName("timezone")
-    val timezone: String,
+    val temp: Double,
+    @SerializedName("timestamp_local")
+    val timestampLocal: String,
+    @SerializedName("timestamp_utc")
+    var Time: String,
     @SerializedName("ts")
     val ts: Double,
     @SerializedName("uv")
@@ -70,11 +59,13 @@ data class Data(
     @SerializedName("weather")
     val weather: Weather,
     @SerializedName("wind_cdir")
-    val windCdir: String,
+    var Sunrise: String,
     @SerializedName("wind_cdir_full")
-    val windCdirFull: String,
+    var Sunset: String,
     @SerializedName("wind_dir")
     val windDir: Double,
+    @SerializedName("wind_gust_spd")
+    val windGustSpd: Double,
     @SerializedName("wind_spd")
     val windSpd: Double
 )

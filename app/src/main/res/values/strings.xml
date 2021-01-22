@@ -33,6 +33,10 @@
     <string name="not_now">Not now</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="wind">Wind Speed </string>
+    <string name="direction">Wind Direction</string>
+    <string name="pressure">Pressure</string>
+    <string name="humidity">Humidity</string>
     <string name="thepackage">package:</string>
     <string name="search_location">Search Location</string>
 
@@ -52,12 +56,21 @@
         <item>December</item>
     </string-array>
 
+    <string-array name="days">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
+
 
     <string-array name="Temperature">
         <item>C</item>
         <item>F</item>
     </string-array>
-
 
 
     <string-array name="Time_Format">
@@ -82,5 +95,7 @@
         <item>Celsius</item>
         <item>Kelvin</item>
     </string-array>
+    <string name="title_activity_radar">Map</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>

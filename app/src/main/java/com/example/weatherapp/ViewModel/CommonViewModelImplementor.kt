@@ -6,9 +6,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.weatherapp.Utilities.Coroutines.MYIO
-import com.example.weatherapp.Utilities.LocationCountResponse
 import com.example.weatherapp.Utilities.LocationResponse
+import com.example.weatherapp.Utilities.WeathersList
+import com.example.weatherapp.data.Network.responses.WeatherAll
 import com.example.weatherapp.data.Network.responses.WeatherResponse
+import com.example.weatherapp.data.Network.responses.myData
 import com.example.weatherapp.data.Repository.WeatherRepository
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.async
@@ -55,23 +57,45 @@ class CommonViewModelImplementor() : ViewModel(), CommonViewModel {
         weatherRepository.SaveSettings(*list)
     }
 
-    override fun GetLocationsCount(): LocationCountResponse {
-        return weatherRepository.GetLocationsCount()
-    }
 
-
-    fun GetWeather(lat:Double,lon:Double): LiveData<WeatherResponse> {
-        val WeatherResult = MutableLiveData<WeatherResponse>()
-        MYIO{
+    fun getWeather(lat: Double, lon: Double): LiveData<WeatherAll> {
+        val weatherAll = WeatherAll()
+        val WeatherResult = MutableLiveData<WeatherAll>()
+        MYIO {
             withContext(Main) {
-                WeatherResult.value = async {
-                    weatherRepository.GetWeather(lat,lon)
-
+                weatherAll.current = async {
+                    weatherRepository.GetWeatherCurrently(lat, lon)
                 }.await()
-            }
 
+                weatherAll.hourly = async {
+                    weatherRepository.GetWeatherHourly(lat, lon)
+                }.await()
+                weatherAll.daily = async {
+                    weatherRepository.GetWeatherDaily(lat, lon)
+                }.await()
+                WeatherResult.value = weatherAll
+            }
         }
         return WeatherResult
     }
+
+    fun SaveLastSelectedWeather(weatherAll: myData) {
+        weatherRepository.SaveLastSelectedWeather(weatherAll)
+    }
+
+    fun LoadLastSelectedWeather(): myData? {
+        return weatherRepository.LoadLastSelectedWeather()
+    }
+
+    fun saveWeather(weatherAll: myData) {
+        MYIO {
+            weatherRepository.SaveWeather(weatherAll)
+        }
+    }
+
+    fun loadWeathers(): WeathersList {
+        return weatherRepository.loadWeathers()
+    }
+
 
 }

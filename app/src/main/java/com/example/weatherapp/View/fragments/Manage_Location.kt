@@ -12,13 +12,13 @@ import com.example.weatherapp.R
 import com.example.weatherapp.Utilities.toast
 import com.example.weatherapp.View.activities.Home
 import com.example.weatherapp.View.adapters.locations_adapter
+import com.example.weatherapp.data.db.entities.WeatherModel
 import com.example.weatherapp.databinding.ManageLocationBinding
 import com.thinkit.smartyhome.ViewModel.CommonViewModelImplementor
 
 class Manage_Location() : Fragment() {
 
     lateinit var manageLocationBinding: ManageLocationBinding
-    lateinit var locations_list: ArrayList<String>
     lateinit var activity: Home
     lateinit var commonViewModelImplementor: CommonViewModelImplementor
 
@@ -39,33 +39,42 @@ class Manage_Location() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        locations_list = ArrayList()
-        repeat(5) {
-            locations_list.add("Location Test")
-        }
+
         manageLocationBinding.apply {
 
+            activity.commonViewModelImplementor.loadWeathers().apply {
+                first?.let { listWeathers ->
+                    listWeathers.observe(viewLifecycleOwner) { weathersList ->
+
+                    }
+                }
+                second?.let {
+                    // Display exception
+                    return
+                }
+
+            }
+
+
+            addLocation.setOnClickListener {
+                activity.Navigate(search_location())
+            }
+        }
+    }
+
+    fun manageRecycler(weatherList:List<WeatherModel>) {
+        manageLocationBinding.apply {
             LocationsRecycler.apply {
                 layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, true)
-                adapter = locations_adapter(locations_list)
+                adapter = locations_adapter(weatherList)
             }
-            home.setOnClickListener {
-                auto.performClick()
-                commonViewModelImplementor.putKey("auto_detect", auto.isChecked)
-            }
-          addLocation.setOnClickListener {
-              activity.Navigate(search_location())
-          }
         }
     }
 
     override fun onResume() {
         super.onResume()
-        commonViewModelImplementor.getkey<Boolean>("auto_detect")?.let { auto_detect ->
-            manageLocationBinding.auto.setChecked(auto_detect)
-            activity.Change_Background(2)
-            activity.ChangeToolbarTitle(requireActivity().getString(R.string.manage_location))
-        }
+        activity.Change_Background(2)
+        activity.ChangeToolbarTitle(requireActivity().getString(R.string.manage_location))
     }
 
 }

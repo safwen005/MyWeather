@@ -2,22 +2,20 @@ package com.example.weatherapp.data.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import com.example.weatherapp.data.Network.responses.WeatherAll
 import com.example.weatherapp.data.db.entities.WeatherModel
 
 @Dao
 interface WeatherDao {
 
     @Insert
-    suspend fun InsertRoom(roomsModel: WeatherModel)
+    suspend fun InsertWeather(weatherModel: WeatherModel)
 
-    @Query("SELECT COUNT(id) FROM Weather_Table")
-    fun GetLocationsCount(): LiveData<Int>
+    @Query("SELECT * from weather_table")
+    fun loadWeathers(): LiveData<List<WeatherModel>>
 
-    /*
-    @Query("SELECT COUNT(column) FROM table")
-    fun getDataCount(): Int
 
-     */
 }

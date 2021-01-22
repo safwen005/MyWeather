@@ -3,9 +3,11 @@ package com.example.weatherapp.View.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.weatherapp.Utilities.WeathersList
+import com.example.weatherapp.data.db.entities.WeatherModel
 import com.example.weatherapp.databinding.LocationsBinding
 
-class locations_adapter(val Locations: ArrayList<String>) :
+class locations_adapter(val weathersList: List<WeatherModel>) :
     RecyclerView.Adapter<locations_adapter.LocationsHolder>() {
 
 
@@ -21,14 +23,14 @@ class locations_adapter(val Locations: ArrayList<String>) :
     }
 
     override fun onBindViewHolder(holder: LocationsHolder, position: Int) =
-        holder.setLocation(Locations[position])
+        holder.setLocation("test")
 
-    override fun getItemCount(): Int = Locations.size
+    override fun getItemCount(): Int = weathersList.size
 
 
     inner class LocationsHolder(val View: LocationsBinding) : RecyclerView.ViewHolder(View.root) {
 
-        fun setLocation(location: String) {
+        fun setLocation(location: String?) {
             View.locationAdress.text = location
         }
 
