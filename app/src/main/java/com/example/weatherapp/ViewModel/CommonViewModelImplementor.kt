@@ -12,9 +12,11 @@ import com.example.weatherapp.data.Network.responses.WeatherAll
 import com.example.weatherapp.data.Network.responses.WeatherResponse
 import com.example.weatherapp.data.Network.responses.myData
 import com.example.weatherapp.data.Repository.WeatherRepository
+import com.example.weatherapp.data.db.entities.WeatherModel
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
+import java.lang.Exception
 
 class CommonViewModelImplementor() : ViewModel(), CommonViewModel {
 
@@ -79,17 +81,30 @@ class CommonViewModelImplementor() : ViewModel(), CommonViewModel {
         return WeatherResult
     }
 
-    fun SaveLastSelectedWeather(weatherAll: myData) {
+    fun SaveLastSelectedWeather(weatherAll: WeatherModel) {
         weatherRepository.SaveLastSelectedWeather(weatherAll)
     }
 
-    fun LoadLastSelectedWeather(): myData? {
+    fun LoadLastSelectedWeather(): WeatherModel? {
         return weatherRepository.LoadLastSelectedWeather()
     }
 
-    fun saveWeather(weatherAll: myData) {
+    fun saveWeather(myData: myData): Exception? {
+        var exception: Exception? = null
         MYIO {
-            weatherRepository.SaveWeather(weatherAll)
+            try {
+                weatherRepository.SaveWeather(myData)
+
+            } catch (e: Exception) {
+                exception = e
+            }
+        }
+        return exception
+    }
+
+    fun updateWeather(myData: myData, index: Int) {
+        MYIO {
+            weatherRepository.updateWeather(myData, index)
         }
     }
 

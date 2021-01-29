@@ -45,7 +45,7 @@ class Manage_Location() : Fragment() {
             activity.commonViewModelImplementor.loadWeathers().apply {
                 first?.let { listWeathers ->
                     listWeathers.observe(viewLifecycleOwner) { weathersList ->
-
+                        manageRecycler(weathersList)
                     }
                 }
                 second?.let {
@@ -62,7 +62,7 @@ class Manage_Location() : Fragment() {
         }
     }
 
-    fun manageRecycler(weatherList:List<WeatherModel>) {
+    fun manageRecycler(weatherList: List<WeatherModel>) {
         manageLocationBinding.apply {
             LocationsRecycler.apply {
                 layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, true)

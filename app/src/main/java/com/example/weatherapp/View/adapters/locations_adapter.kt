@@ -23,7 +23,7 @@ class locations_adapter(val weathersList: List<WeatherModel>) :
     }
 
     override fun onBindViewHolder(holder: LocationsHolder, position: Int) =
-        holder.setLocation("test")
+        holder.setLocation(weathersList[position].weatherAll.current.get("cityName"))
 
     override fun getItemCount(): Int = weathersList.size
 

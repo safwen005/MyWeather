@@ -94,6 +94,13 @@ dependencies {
     // viewpager2
     implementation "androidx.viewpager2:viewpager2:1.0.0"
 
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.gms:play-services-places:17.0.0'
+    implementation 'com.google.android.libraries.places:places:2.4.0'
+
+    // auto complete
+    implementation 'com.github.mukeshsolanki:Google-Places-AutoComplete-EditText:17.1.0'
+
     // kotlin serialization
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"
 

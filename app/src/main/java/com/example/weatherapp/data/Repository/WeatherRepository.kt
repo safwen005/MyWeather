@@ -12,6 +12,7 @@ import com.example.weatherapp.Utilities.Constants.days
 import com.example.weatherapp.Utilities.Constants.hours
 import com.example.weatherapp.Utilities.LocationResponse
 import com.example.weatherapp.Utilities.WeathersList
+import com.example.weatherapp.Utilities.random
 import com.example.weatherapp.data.Network.Get_Location
 import com.example.weatherapp.data.Network.Interceptor
 import com.example.weatherapp.data.Network.MyApiCall
@@ -138,19 +139,23 @@ class WeatherRepository() {
         ).data
     }
 
-    fun SaveLastSelectedWeather(weatherAll: myData) {
+    fun SaveLastSelectedWeather(weatherAll: WeatherModel) {
         val json = gson.toJson(weatherAll);
         editor.putString("last_selected_weather", json)
         editor.apply()
     }
 
-    fun LoadLastSelectedWeather(): myData? {
+    fun LoadLastSelectedWeather(): WeatherModel? {
         val json = sharedPreferences.getString("last_selected_weather", null)
-        return gson.fromJson(json, myData::class.java)
+        return gson.fromJson(json, WeatherModel::class.java)
     }
 
-    suspend fun SaveWeather(weatherAll: myData) {
-        weatherdatabase.RoomDao().InsertWeather(WeatherModel(weatherAll = weatherAll))
+    suspend fun SaveWeather(myData: myData) {
+        weatherdatabase.RoomDao().InsertWeather(WeatherModel(weatherAll = myData))
+    }
+
+    fun updateWeather(myData: myData, index: Int) {
+        weatherdatabase.RoomDao().updateWeather(myData, index)
     }
 
     fun loadWeathers(): WeathersList {
@@ -160,5 +165,6 @@ class WeatherRepository() {
             return WeathersList(null, exception)
         }
     }
+
 
 }

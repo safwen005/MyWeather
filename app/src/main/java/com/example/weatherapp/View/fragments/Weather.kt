@@ -21,6 +21,7 @@ import com.example.weatherapp.data.Network.responses.Data
 import com.example.weatherapp.data.Network.responses.Hourly.Hourly
 import com.example.weatherapp.data.Network.responses.WeatherAll
 import com.example.weatherapp.data.Network.responses.myData
+import com.example.weatherapp.data.db.entities.WeatherModel
 import com.example.weatherapp.databinding.WeatherBinding
 import dmax.dialog.SpotsDialog
 import java.text.SimpleDateFormat
@@ -32,9 +33,10 @@ class Weather() : Fragment() {
 
     lateinit var weatherBinding: WeatherBinding
     lateinit var activity: Home
+    var index: Int? = null
 
     //   lateinit var dialog: AlertDialog
-    lateinit var currentt: HashMap<String, String>
+    var currentt: HashMap<String, String>?=null
     var lastSelected = false
     var ok by Delegates.notNull<Boolean>()
     override fun onCreateView(
@@ -61,8 +63,10 @@ class Weather() : Fragment() {
         super.onResume()
         activity.Change_Background(1)
         activity.commonViewModelImplementor.LoadLastSelectedWeather()?.let { lastSelected ->
-            DisplayWeatherALl(lastSelected)
+            Log.e("myapp","last selected "+lastSelected.weatherAll.current.get("cityName"))
+            DisplayWeatherALl(lastSelected.weatherAll)
             this.lastSelected = true
+            index = lastSelected.id
         }
         start(ok)
 
@@ -79,11 +83,29 @@ class Weather() : Fragment() {
 
 
     private fun myData.saveWeather() {
-        //    activity.commonViewModelImplementor.saveWeather(this)
+        activity.commonViewModelImplementor.saveWeather(this)?.let { exception ->
+            Log.e("myapp", "insert exception : " + exception.message)
+            return
+        }
+        activity.commonViewModelImplementor.getkey<Int>("count")?.let { count ->
+            activity.commonViewModelImplementor.putKey("count", count + 1)
+            activity.commonViewModelImplementor.SaveLastSelectedWeather(
+                WeatherModel(
+                    count + 1,
+                    this
+                )
+            )
+        }
     }
 
-    private fun myData.updaterWeather() {
-        // update db
+    private fun myData.updaterWeather(index: Int) {
+        activity.commonViewModelImplementor.updateWeather(this, index)
+        activity.commonViewModelImplementor.SaveLastSelectedWeather(
+            WeatherModel(
+                index,
+                this
+            )
+        )
     }
 
 
@@ -107,13 +129,14 @@ class Weather() : Fragment() {
                 all?.let { weatherAll ->
                     val newWeather = convertResponse(weatherAll)
                     newWeather?.let {
-                        activity.commonViewModelImplementor.SaveLastSelectedWeather(it)
                         DisplayWeatherALl(newWeather)
-                        if (update) {
-                            newWeather.updaterWeather()
-                            return@observe
-                        }
-                        newWeather.saveWeather()
+                        if (update)
+                            index?.let {
+                                newWeather.updaterWeather(it)
+                            }
+                        else
+                            newWeather.saveWeather()
+
                     }
 
                 }
@@ -124,9 +147,6 @@ class Weather() : Fragment() {
 
         if (weatherAll.current == null || weatherAll.hourly == null || weatherAll.daily == null) {
             return null
-        }
-        convertHourly(weatherAll.hourly!!).forEach {
-            Log.e("myapp", it.toString())
         }
         return myData(
             convertCurrent(weatherAll.current!!.data.first()),
@@ -151,9 +171,9 @@ class Weather() : Fragment() {
                             .toUpperCase()
                     )
                     put("dateTime", requireActivity().getDate(datetime))
-                    put("cityName", currentt.get("cityName").toString())
-                    put("mySunrise", currentt.get("mySunrise").toString())
-                    put("mySunset", currentt.get("mySunset").toString())
+                    put("cityName", currentt?.get("cityName").toString())
+                    put("mySunrise", currentt?.get("mySunrise").toString())
+                    put("mySunset", currentt?.get("mySunset").toString())
                     put("myTemp", "$temp°")
                     put("description", weather.description)
                     put("direction", getString(R.string.direction) + " : " + windDir.toInt() + "°")
@@ -179,9 +199,9 @@ class Weather() : Fragment() {
                 myResult.apply {
                     put("time", Time.substring(11, 16))
                     put("dateTime", requireContext().getDate(datetime.substring(0, 10)))
-                    put("cityName", currentt.get("cityName").toString())
-                    put("mySunrise", currentt.get("mySunrise").toString())
-                    put("mySunset", currentt.get("mySunset").toString())
+                    put("cityName", currentt?.get("cityName").toString())
+                    put("mySunrise", currentt?.get("mySunrise").toString())
+                    put("mySunset", currentt?.get("mySunset").toString())
                     put("myTemp", "$temp°")
                     put("description", weather.description)
                     put("direction", getString(R.string.direction) + " : " + windDir.toInt() + "°")
@@ -217,7 +237,8 @@ class Weather() : Fragment() {
             }
         }
         currentt = myResult
-        return currentt
+        Log.e("myapp", currentt?.get("myTemp")!!)
+        return currentt!!
     }
 
 
@@ -228,21 +249,13 @@ class Weather() : Fragment() {
         }
         //   dialog.dismiss()
         weatherAll.apply {
-            current.let { current ->
-                currentt = current
-                setCurrent(current)
-                hourly.let { hourly ->
-                    setHourly(
-                        hourly
-                    )
-                }
-                daily.let { daily ->
-                    setDaily(
-                        daily
-                    )
-                }
-
-            }
+            setCurrent(currentt)
+            setHourly(
+                hourly
+            )
+            setDaily(
+                daily
+            )
         }
     }
 
@@ -287,8 +300,8 @@ class Weather() : Fragment() {
 
 
     @SuppressLint("SetTextI18n")
-    private fun setCurrent(data: HashMap<String, String>) {
-        data.apply {
+    private fun setCurrent(data: HashMap<String, String>?) {
+        data?.apply {
             weatherBinding.apply {
                 mytemp.text = get("myTemp")
                 sunrisee.text = get("mySunrise")

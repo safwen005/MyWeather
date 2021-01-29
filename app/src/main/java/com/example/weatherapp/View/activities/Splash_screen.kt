@@ -47,12 +47,17 @@ class Splash_screen : AppCompatActivity() {
             commonViewModelImplementor.First_Time()?.let { firstTime ->
                 if (firstTime) {
                     GoToSettings()
+                    initShared()
                     return@Main
                 }
                 GoToHome()
             }
         }
 
+    }
+
+    private fun initShared() {
+        commonViewModelImplementor.putKey("count", 0)
     }
 
 

@@ -11,6 +11,5 @@ import com.example.weatherapp.data.Network.responses.myData
 data class WeatherModel(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    @Embedded
     val weatherAll: myData
 )

@@ -16,23 +16,11 @@
         android:layout_marginEnd="@dimen/_30sdp"
         >
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/search"
+        <fragment android:id="@+id/autocomplete_fragment"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_30sdp"
-            android:paddingStart="@dimen/_10sdp"
-            android:theme="@style/MyDialog"
-            android:textSize="@dimen/_8ssp"
-            android:inputType="textPersonName"
-            android:lines="1"
-            android:maxLines="1"
-            android:minLines="1"
-            android:maxLength="40"
-            android:paddingEnd="@dimen/_7sdp"
-            app:backgroundTint="@color/white"
-            android:fontFamily="@font/roboto"
-            android:hint="@string/search_location"
-            tools:ignore="RtlSymmetry" />
+            android:layout_height="wrap_content"
+            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+            />
 
         <ImageView
             android:id="@+id/reset"
